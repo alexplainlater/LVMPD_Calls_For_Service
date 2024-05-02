@@ -1,0 +1,17 @@
+12.0
+15
+1	SQLCHAR	0	100		",\""		1		OBJECTID				""
+2	SQLCHAR	0	100		"\",\""		2		IncidentNumber			""
+3	SQLCHAR	0	100		"\",\""		3		AC_NAME					""
+4	SQLCHAR	0	100		"\",\""		4		AC_AGENCY				""
+5	SQLCHAR	0	100		"\",\""		5		AC_AC					""
+6	SQLCHAR	0	100		"\",\""		6		AC_FULLNAME				""
+7	SQLCHAR	0	100		"\",\""		7		SB_BEAT					""
+8	SQLCHAR	0	100		"\",\""		8		SB_SECTOR				""
+9	SQLCHAR	0	100		"\",\""		9		SB_ACOM					""
+10	SQLCHAR	0	100		"\",\""		10		CENS_STATEFP20			""
+11	SQLCHAR	0	100		"\",\""		11		CENS_COUNTYFP20			""
+12	SQLCHAR	0	100		"\",\""		12		CENS_TRACTCE20			""
+13	SQLCHAR	0	100		"\",\""		13		CENS_BLOCKCE20			""
+14	SQLCHAR	0	100		"\",\""		14		CENS_GEOID20			""
+15	SQLCHAR	0	100		"\"\r\n"	15		CENS_GEOIDFQ20			""
