@@ -23,6 +23,32 @@ query = '''
     ORDER BY 1
 '''
 
+import pandas as pd
 dfClassification = pd.read_sql( query, engine, index_col='Classification' )
 dfClassification.head()
 ```
+
+By plotting the data, I can see there are some categories that have a large number of Calls For Service, while there are some categories with very few.
+```python
+dfClassification.plot(kind="barh", figsize=(10,10))
+```
+![Horizontal bar chart of category frequencies.](/assets/LVMPD_Classification_BarH.png)
+
+Which categories have the largest frequencies?
+```python
+dfClassification['QTY'].nlargest(10)
+```
+
+| Classification | QTY |
+| ---------------------- | ------: |
+| Fight                  | 238,329 |
+| Family Disturbance     | 155,735 |
+| Traffic Accident       | 146,377 |
+| Stolen Vehicle         |  91,082 |
+| Suspicious Activity    |  78,209 |
+| Assault/Battery        |  71,448 |
+| Larceny                |  64,126 |
+| Assist Citizen         |  61,120 |
+| Burglary               |  49,487 |
+| Missing Person         |  39,547 |
+
