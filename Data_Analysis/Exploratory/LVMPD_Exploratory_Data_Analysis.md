@@ -1,7 +1,7 @@
 
 
 I'd like to do some exploratory data analysis in Python using the data I stored in SQL.  The first step is to set up a connection with my SQL server:
-```
+```python
 from sqlalchemy import create_engine
 
 server = '***'
@@ -12,7 +12,7 @@ password = '******'
 engine = create_engine( 'mssql+pyodbc://' + username + ':' + password + '@' + server + '/' + database + '?driver=ODBC+Driver+17+for+SQL+Server' )
 ```
 The next thing I'd like to do is run a query that pulls together all the Calls to Service classifications and see which types of calls to service are most prevalent.
-```
+```python
 query = '''
     SELECT
         Classification
