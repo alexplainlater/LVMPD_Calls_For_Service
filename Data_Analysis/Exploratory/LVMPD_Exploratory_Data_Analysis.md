@@ -214,3 +214,30 @@ dfClassificationByYear['Increase_perc_2023'].nlargest(10)
 | Suspicious Activity       | 0.004434 |
 
 So stolen vehicles was the category with the largest increase of Calls for Service with a 25% increase in 2023 versus 2022.
+
+To dig deeper into the stolen vehicles, I'm going to go back into SQL and take a look at the `TypeDescription` field for the `Classification = 'Stolen Vehicle'`
+
+```sql
+SELECT
+	TypeDescription
+	, QTY = COUNT(*)
+FROM LVMPD_Crime.dbo.LVMPD_Calls_For_Service_ALL 
+WHERE Classification = 'Stolen Vehicle'
+GROUP BY TypeDescription
+ORDER BY 1
+```
+
+| TypeDescription                               | QTY    |
+|-----------------------------------------------|-------:|
+| 411 - STOLEN MOTOR VEHICLE                    | 4,6714 |
+| 411A - RECOVERED STOLEN VEHICLE               | 3,6396 |
+| 411AU - RECOVERED STOLEN VEHICLE UNHOUSED     |      2 |
+| 411B - STOLEN DEPARTMENT BAIT CAR             |     19 |
+| 411D - STOLEN MOTOR VEHICLE/INVOLVES DOM VIOL |      8 |
+| 411E - EMBEZZLED VEHICLE                      |  2,803 |
+| 411S - STOLEN MOTOR VEHICLE SCHOOL            |      1 |
+| 411U - STOLEN MOTOR VEHICLE UNHOUSED          |      2 |
+| 411Z - ATTEMPTED STOLEN MOTOR VEHICLE         |  5,137 |
+
+Looks like I'd like to only use three of these as the others are either tiny/inconsequential or are more of a positive result to a negative situation.
+I'll just use `TypeDescription IN( '411 - STOLEN MOTOR VEHICLE', '411E - EMBEZZLED VEHICLE', '411Z - ATTEMPTED STOLEN MOTOR VEHICLE' )`
