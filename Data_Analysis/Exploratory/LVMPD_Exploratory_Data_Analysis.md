@@ -32,7 +32,7 @@ By plotting the data, I can see there are some categories that have a large numb
 ```python
 dfClassification.plot(kind="barh", figsize=(10,10))
 ```
-![Horizontal bar chart of category frequencies.](/assets/LVMPD_Classification_BarH.png)
+![Horizontal bar chart of category frequencies.](https://github.com/alexplainlater/LVMPD_Calls_For_Service/blob/main/Data_Analysis/Exploratory/assets/LVMPD_Classification_BarH.png)
 
 Which categories have the largest frequencies?
 ```python
