@@ -1,6 +1,9 @@
+# LVMPD Exploratory Data Analysis
 
+## (in-progress)
 
 I'd like to do some exploratory data analysis in Python using the data I stored in SQL.  The first step is to set up a connection with my SQL server:
+
 ```python
 from sqlalchemy import create_engine
 
@@ -11,7 +14,9 @@ password = '******'
 
 engine = create_engine( 'mssql+pyodbc://' + username + ':' + password + '@' + server + '/' + database + '?driver=ODBC+Driver+17+for+SQL+Server' )
 ```
+
 The next thing I'd like to do is run a query that pulls together all the Calls For Service classifications and see which types of calls for service are most prevalent.
+
 ```python
 query = '''
     SELECT
@@ -29,12 +34,15 @@ dfClassification.head()
 ```
 
 By plotting the data, I can see there are some categories that have a large number of Calls For Service, while there are some categories with very few.
+
 ```python
 dfClassification.plot(kind="barh", figsize=(10,10))
 ```
+
 ![Horizontal bar chart of category frequencies.](https://github.com/alexplainlater/LVMPD_Calls_For_Service/blob/main/Data_Analysis/Exploratory/assets/LVMPD_Classification_BarH.png)
 
 Which categories have the largest frequencies?
+
 ```python
 dfClassification['QTY'].nlargest(10)
 ```
@@ -53,6 +61,7 @@ dfClassification['QTY'].nlargest(10)
 | Missing Person         |  39,547 |
 
 I wonder how these look by year.  There are years 2019 - 2023 of data included, so let's break that out.
+
 ```python
 query = '''
     SELECT
@@ -72,14 +81,17 @@ query = '''
 dfClassificationByYear = pd.read_sql( query, engine, index_col='Classification' )
 dfClassificationByYear.head()
 ```
+
 And again, we can plot this, but this time stacking the years so they each show up as a different color
 
 ```python
 dfClassificationByYear.drop('QTY', axis = 1).plot.barh(stacked=True, figsize=(10,10))
 ```
+
 ![Horizontal bar chart of category frequencies by year - stacked.](https://github.com/alexplainlater/LVMPD_Calls_For_Service/blob/main/Data_Analysis/Exploratory/assets/LVMPD_Classification_ByYear_BarH.png)
 
 I wonder how they change by year over year
+
 ```python
 dfClassificationByYear['Increase_2020'] = dfClassificationByYear['QTY_2020'] - dfClassificationByYear['QTY_2019']
 dfClassificationByYear['Increase_2021'] = dfClassificationByYear['QTY_2021'] - dfClassificationByYear['QTY_2020']
@@ -130,8 +142,8 @@ dfClassificationByYear
 | Unknown Trouble                | 6833   | 1408     | 1515     | 1329     | 1315     | 1266     | 107           | -186          | -14           | -49           |
 | Wanted Subject                 | 20642  | 6709     | 3763     | 3692     | 3400     | 3078     | -2946         | -71           | -292          | -322          |
 
-
 That's not terribly helpful, let's look at the percentage change year over year
+
 ```python
 dfClassificationByYear['Increase_perc_2020'] = ( dfClassificationByYear['QTY_2020'] - dfClassificationByYear['QTY_2019'] ) / dfClassificationByYear['QTY_2019']
 dfClassificationByYear['Increase_perc_2021'] = ( dfClassificationByYear['QTY_2021'] - dfClassificationByYear['QTY_2020'] ) / dfClassificationByYear['QTY_2020']
@@ -183,6 +195,7 @@ dfClassificationByYear
 | Wanted Subject                 | 20642  | 6709     | 3763     | 3692     | 3400     | 3078     | -2946         | -71           | -292          | -322          | -0.439112          | -0.018868          | -0.079090          | -0.094706          |
 
 Ok, which categories have the largest increase in 2023 from 2022?
+
 ```python
 dfClassificationByYear['Increase_perc_2023'].nlargest(10)
 ```
